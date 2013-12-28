@@ -1,16 +1,24 @@
 class OutsideTemp
   require 'weather-api'
 
-  def self.current(woeid)
-    Weather.lookup(woeid).condition.temp
+  def initialize(woeid = nil)
+    if woeid
+      @weather_response = Weather.lookup(woeid)
+    else
+      raise ArgumentError, "You must provide a valid WOEID"
+    end
   end
 
-  def self.high(woeid)
-    Weather.lookup(woeid).forecasts.first.high
+  def current
+    @weather_response.condition.temp
   end
 
-  def self.low(woeid)
-    Weather.lookup(woeid).forecasts.first.low
+  def high
+    @weather_response.forecasts.first.high
+  end
+
+  def low
+    @weather_response.forecasts.first.low
   end
 
 end
