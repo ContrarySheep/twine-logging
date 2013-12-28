@@ -2,6 +2,7 @@ class Twine
   
   require 'time'
   require 'net/http'
+  require 'openssl'
   require 'uri'
   require 'json'
 
