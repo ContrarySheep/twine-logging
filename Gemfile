@@ -6,5 +6,5 @@ gem 'google_drive'
 # The weather API gem to interface with Yahoo! weather.
 gem 'weather-api'
 
-# Rsoec for tests.
+# Rspec for tests.
 gem 'rspec'
