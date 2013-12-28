@@ -3,49 +3,47 @@ require "twine"
 
 describe "Twine" do
 
-  before(:each) do
-    @twine = Twine.new(CREDENTIALS['twine_id'],CREDENTIALS['twine_access_key'])
-  end
-  
-  it "should create a new instance of the Twin class" do
-    Twine.new(CREDENTIALS['twine_id'],CREDENTIALS['twine_access_key'])
+  before(:all) do
+    @twines = CREDENTIALS['twines']
   end
 
-  it "should check if the status needs updating" do
-    File.open("/tmp/twine.cache", "w+") { |file| file.write(Time.now - 15*60*60) }
-    @twine.update_status
-    Time.parse(File.read("/tmp/twine.cache", &:readline)).should be_within(10).of(Time.now)
-    File.open("/tmp/twine.cache", "w+") { |file| file.write(Time.now - 7*60) }
-    @twine.update_status
-    Time.parse(File.read("/tmp/twine.cache", &:readline)).should_not be_within(10).of(Time.now)
-    File.delete("/tmp/twine.cache")
+  it "should return an error if the twine credentials are missing" do
+    expect { Twine.new }.to raise_error(ArgumentError, "You must provide valid twine credentials")
   end
 
-  context "initialized with preset data" do
+  it "should return the first twine's name" do
+    twine = Twine.new(@twines.values.first)
+    twine.name.should eq @twines.values.first['twine_name']
+  end
 
-    before(:all) do
-      File.open("/tmp/twine.cache", "w+") do |f|
-        f.puts Time.now
-        f.puts "[[\"#{CREDENTIALS['twine_id']}00\", \"2.0.2\"], [\"#{CREDENTIALS['twine_id']}01\", 7100], [\"#{CREDENTIALS['twine_id']}03\", \"top\"], [\"#{CREDENTIALS['twine_id']}05\", 2941750], [\"#{CREDENTIALS['twine_id']}06\", 0], [\"#{CREDENTIALS['twine_id']}07\", 0], [\"#{CREDENTIALS['twine_id']}04\", 0], [\"#{CREDENTIALS['twine_id']}02\", 0]]"
-      end
-    end
+  it "should return the first twine's access key" do
+    twine = Twine.new(@twines.values.first)
+    twine.access_key.should eq @twines.values.first['twine_access_key']
+  end
 
-    it "should return the appropriate number of status objects for all" do
-      @twine.status.length.should eq 8
-    end
+  it "should return the first twine's id" do
+    twine = Twine.new(@twines.values.first)
+    twine.id.should eq @twines.values.first['twine_id']
+  end
 
-    it "should return the appropriate status objects for temperature" do
-      @twine.status(:temperature).should eq 71
-    end
+  it "should return the first twines status hash with 8 readings" do
+    twine = Twine.new(@twines.values.first)
+    twine.status.length.should eq 8
+  end
 
-    it "should return the appropriate status objects for orientation" do
-      @twine.status(:orientation).should eq "top"
-    end
+  it "should return the first twines temperature in the status hash" do
+    twine = Twine.new(@twines.values.first)
+    twine.status(:temperature).should_not eq nil
+  end
 
-    it "should return the appropriate status objects for vibration" do
-      @twine.status(:vibration).should eq 0
-    end
+  it "should return the first twines orientation in the status hash" do
+    twine = Twine.new(@twines.values.first)
+    twine.status(:orientation).should_not eq nil
+  end
 
+  it "should return the first twines vibration in the status hash" do
+    twine = Twine.new(@twines.values.first)
+    twine.status(:vibration).should_not eq nil
   end
 
 end

@@ -5,13 +5,29 @@ class Twine
   require 'uri'
   require 'json'
 
-  def initialize(twine_id, twine_access_key)
-    @twine_id = twine_id
-    @twine_access_key = twine_access_key
+  def initialize(twine_hash = nil)
+    if twine_hash
+      @twine_id = twine_hash['twine_id']
+      @twine_access_key = twine_hash['twine_access_key']
+      @twine_name = twine_hash['twine_name']
+    else
+      raise ArgumentError, "You must provide valid twine credentials"
+    end
+  end
+
+  def name
+    @twine_name
+  end
+
+  def id
+    @twine_id
+  end
+
+  def access_key
+    @twine_access_key
   end
 
   def status(reading="all")
-    need_update?
     if reading == :temperature
       read_all['temperature'] / 100
     elsif reading == :orientation
@@ -23,24 +39,7 @@ class Twine
     end
   end
 
-  def update_status
-    update_now if need_update?
-  end
-
   private
-
-  def need_update?
-    if !File.exists?("/tmp/twine.cache") || Time.parse(File.read("/tmp/twine.cache", &:readline)) < (Time.now - 15*60)
-      update_now
-    end
-  end
-
-  def update_now
-    File.open("/tmp/twine.cache", "w+") do |f|
-      f.puts Time.now
-      f.puts poll_twine.to_s
-    end
-  end
 
   def poll_twine
     uri = URI.parse("https://twine.cc/#{@twine_id}/rt?cached=1&access_key=#{@twine_access_key}")
@@ -53,7 +52,7 @@ class Twine
   end
 
   def read_all
-    raw_data = JSON.parse(IO.readlines("/tmp/twine.cache")[1])
+    raw_data = poll_twine
     parsed_data = Array.new
     for entry in raw_data do
       parsed_data << humanize_value(entry[0])
