@@ -1,0 +1,4 @@
+desc "Deploy the code to a Raspberry Pi" 
+task :deploy do
+end
+
