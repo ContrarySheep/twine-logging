@@ -8,6 +8,3 @@ gem 'weather-api'
 
 # Rspec for tests.
 gem 'rspec'
-
-# Deploy to the Raspebrry Pi with Capistrano.
-gem 'capistrano', '~> 3.0.1'
