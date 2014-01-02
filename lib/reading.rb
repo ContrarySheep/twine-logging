@@ -15,26 +15,56 @@ class Reading
     @ws.num_cols
   end
 
-  def record(date,outside_temp,twine_temp_array)
-    add_column_headings(twine_temp_array.length)
+  def record(outside_temp,twines)
+    add_column_headings(twines)
+
+    time_rotate if !@ws[2,1].empty?
+
     new_row = @ws.num_rows + 1
-    @ws[new_row,1] = date
-    @ws[new_row,2] = outside_temp
+
+    # Record the current time
+    @ws[new_row,1] = Time.now.getlocal('-05:00').strftime('%d/%m/%Y %l:%M %p')
+
+    # Record the current outside_temp
+    @ws[new_row,2] = outside_temp.current
+
+    # Record the current temperature of each twine
     i = 3
-    for twine_temp in twine_temp_array do
-      @ws[new_row,i] = twine_temp
+    for twine in twines do
+      selected_twine = Twine.new(twine[1])
+      @ws[new_row,i] = selected_twine.status(:temperature)
       i += 1
     end
-    @ws.save()
+    @ws.save
   end
 
   private
 
-  def add_column_headings(number_of_twines)
+  def add_column_headings(twines)
     @ws[1,1] = "Time"
     @ws[1,2] = "Outside Temperature"
-    number_of_twines.times do |i|
-      @ws[1,i+3] = "Twine ##{i+1}"
+    i = 0
+    for twine in twines do
+      @ws[1,i+3] = "#{twine[1]['twine_name']}"
+      i += 1
+    end
+  end
+
+  def time_rotate
+    first_recorded_time = Time.parse(@ws[2,1])
+    forty_eight_hours_ago = Time.now - 48 * 60 * 60
+    if first_recorded_time <= forty_eight_hours_ago
+      for row in @ws.rows
+        row_number = @ws.rows.rindex(row)
+        if row_number > 0
+          for column in row do
+            column_number = row.rindex(column)
+            @ws[row_number+1,column_number+1] = @ws[row_number+2,column_number+1]
+          end
+        end
+      end
+      @ws.save
+      @ws.reload
     end
   end
 
