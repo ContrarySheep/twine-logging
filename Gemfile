@@ -8,3 +8,6 @@ gem 'weather-api'
 
 # Rspec for tests.
 gem 'rspec'
+gem 'guard'
+gem 'guard-rspec'
+gem 'rb-fsevent'
