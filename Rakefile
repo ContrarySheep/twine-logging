@@ -5,7 +5,6 @@ task :default => :spec
 require 'rspec/core/rake_task'
 RSpec::Core::RakeTask.new(:spec)
 
-
 namespace :temperature do
 
   # Require everything in the lib directory.
@@ -24,7 +23,6 @@ namespace :temperature do
   google_username = credentials['google_username']
   google_password = credentials['google_password']
   google_spreadsheet_key = credentials['google_spreadsheet_key']
-  
 
   desc "Gets the current temperatures"
   task :current do
