@@ -29,20 +29,36 @@
     </div>
 
     <div id="container">
+      <div id="header">
+        <h1>Temperature Logging with Twine</h1>
+        <div id="project_calculation">
+          <div><img src="images/twine_logo.png" title="Twine from Supermechanical" alt="Twine"></div>
+          <div class="plus">+</div>
+          <div><img src="images/rpi_logo.png" title="Raspberry Pi" alt="Raspberry Pi"></div>
+          <div class="plus">+</div>
+          <div><img src="images/ruby_logo.png" title="Ruby" alt="Ruby"></div>
+          <div class="plus">+</div>
+          <div><img src="images/cron_logo.png" title="Cron" alt="Cron"></div>
+          <div class="plus">+</div>
+          <div><img src="images/yahoo_logo.png" title="Yahoo! Weather API" alt="Yahoo! Weather API"></div>
+          <div class="plus">+</div>
+          <div><img src="images/google_drive_logo.png" title="Google Drive" alt="Google Drive"></div>
+          <div class="plus">+</div>
+          <div><img src="images/github_logo.png" title="Github Pages" alt="Github Pages"></div>
+          <div class="equals">=</div>
+          <div class="result"><img src="images/sheep-thermometer.png"></div>
+
+        </div>
+      </div>
+
+      
       <div class="inner">
 
-        <header>
-          <h1></h1>
-        </header>
-
-        <hr>
-
-        <section id="main_content">
-
-          <h3>Current Temperatures</h3>
+        <h2>Current Temperatures</h2>
           
-          <p>Below is the current outside and indoor temperatures.</p>
+        <p>Below is the current outside and indoor temperatures.</p>
 
+        <div id="current_temps">
           <div id="current_outside_temp">
             <p>Outside Temperature</p>
           </div>
@@ -50,23 +66,25 @@
           <div id="current_inside_temp">
             <p>Inside Temperature</p>
           </div>
-
-          <hr>
-
-          <h3>Temperature Log</h3>
-
-          <p>Below is the temperature log.</p>
-
-          <div id="chart_div" style="width: 100%; height: 500px;"></div>
-
-
-        </section>
+        </div>
 
         <hr>
 
-        <footer>
-          
-        </footer>
+        <h2>Temperature Log</h2>
+
+        <p>Below is the temperature log.</p>
+
+        <div id="chart_div" style="width: 100%; height: 500px;"></div>
+
+      </div>
+
+      <div id="footer">
+
+        <div id="copyright">&copy;2014 ContrarySheep</div>
+        
+        <hr />
+        
+        <div><img src="images/sheep-thermometer.png"></div>
 
       </div>
     </div>
