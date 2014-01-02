@@ -40,12 +40,11 @@ namespace :temperature do
 
   desc "Records the current temperature"
   task :record do
-    for twine in twines do
-      selected_twine = Twine.new(twine[1])
-      current_temp = selected_twine.status(:temperature)
-    end
     outside_temp = OutsideTemp.new(woeid)
-    puts "#{current_temp}/#{outside_temp.current} @ #{Time.now.getlocal('-05:00').strftime('%m/%d/%Y %l:%M %p')}"
+    reading = Reading.new(google_username, google_password, google_spreadsheet_key)
+    if reading.record(outside_temp,twines)
+      puts "temperature recorded successfully."
+    end    
   end
 
   desc "Outputs all the settings"
