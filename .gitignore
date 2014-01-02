@@ -2,3 +2,5 @@
 .bundle
 tmp
 config/credentials.yml
+.sass-cache
+_site

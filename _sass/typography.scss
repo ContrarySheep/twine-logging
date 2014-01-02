@@ -1,0 +1,38 @@
+@import url(//fonts.googleapis.com/css?family=Roboto+Condensed:300italic,400,300,700|Roboto+Slab:400,100,300,700);
+
+@mixin roboto-condensed{
+  font-family: 'Roboto Condensed', sans-serif;
+  font-weight: 400;
+}
+
+@mixin roboto-condensed-light{
+  font-family: 'Roboto Condensed', sans-serif;
+  font-weight: 300;
+}
+
+@mixin roboto-condensed-light-italic{
+  font-family: 'Roboto Condensed', sans-serif;
+  font-weight: 300;
+  font-style: italic;
+}
+
+@mixin roboto-slab{
+  font-family: 'Roboto Slab', serif;
+  font-weight: 400;
+}
+
+@mixin roboto-slab-light{
+  font-family: 'Roboto Slab', serif;
+  font-weight: 100;
+}
+
+$tag-button-color: #CACACA;
+$category-button-color: #6C6C6C;
+$archive-button-color: #999;
+
+$gradient_from: #595959;
+$gradient_to: #404040;
+
+$dark-grey-color: #191919;
+$medium-grey-color: #b3b3b3;
+$light-grey-color: #e8e9e9;

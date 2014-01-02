@@ -1,54 +1,33 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="author" content="ContrarySheep" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Temperature Logging with Twine</title>
 
+    <link rel="shortcut icon" type="image/png" href="images/no-icon.png" />
+    <link rel="apple-touch-icon" href="images/no-icon.png" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" />
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-    <script type="text/javascript">
-      google.load("visualization", "1", {packages:["corechart"]});
-      google.setOnLoadCallback(drawChart);
-      function drawChart() {
-
-        var query = new google.visualization.Query(
-      'https://docs.google.com/spreadsheet/ccc?key=0AuC8Jc9vPbledDBVYWFQc2FLOFFWQ1luSTVJM0ZqT1E&usp=sharing');
-
-        query.send(handleQueryResponse);
-
-      }
-
-      function handleQueryResponse(response) {
-        if (response.isError()) {
-          alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
-          return;
-        }
-
-        var data = response.getDataTable();
-
-        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-
-        var options = {
-          title: 'Temperature Monitoring',
-          curveType: 'function',
-          explorer: { actions: ['dragToZoom', 'rightClickToReset']  },
-          legend: { position: 'bottom' },
-          hAxis: { format: 'h:mm a M/d'}
-        };
-
-        chart.draw(data, options);
-      }
-
-    </script>
+    <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="js/visualization.js"></script>
 
   </head>
 
   <body>
+
+    <div id="forkme">
+      <a href="http://github.com/ContrarySheep/twine-logging">
+        <img src="https://a248.e.akamai.net/camo.github.com/e6bef7a091f5f3138b8cd40bc3e114258dd68ddf/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub">
+      </a>
+    </div>
+
     <div id="container">
       <div class="inner">
 
@@ -62,7 +41,15 @@
 
           <h3>Current Temperatures</h3>
           
-          <p>Below is the current external and internal temperatures.</p>
+          <p>Below is the current outside and indoor temperatures.</p>
+
+          <div id="current_outside_temp">
+            <p>Outside Temperature</p>
+          </div>
+
+          <div id="current_inside_temp">
+            <p>Inside Temperature</p>
+          </div>
 
           <hr>
 
