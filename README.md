@@ -13,7 +13,7 @@ With Ruby installed, you can install the bundler gem, but first you should chang
 
 We'll be using rsync to transfer the code from the local machine to the Raspberry Pi.
 
-    rsync -avz --exclude '.git' --exclude 'Gemfile.lock' --exclude 'config/credentials.yml' ./ username@rpi-address:/twine-logging-directory/
+    rsync -avz --exclude '.git' --exclude 'Gemfile.lock' --exclude 'config/credentials.yml' ./ username@rpi-address:/var/twine-logging/
 
 We'll also need to run the bundle command on the Raspebrry Pi.
 
@@ -23,4 +23,6 @@ Make sure everything is working by performing the current temperature rake task 
 
     rake temperature:current
 
+Add the temperature:record rake task to crontab using the absolute path to the rake command. Below would be the command for every 15 minutes.
 
+	*/15 *  * * *   root    cd /var/twine-logging && /usr/local/bin/rake temperature:record
