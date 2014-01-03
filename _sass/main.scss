@@ -88,10 +88,11 @@ body{
     box-shadow:         4px 4px 10px rgba(0, 0, 0, 0.2);
     margin: 0;
     padding: 0;
-    width: 470px;
-    min-width: 200px;
+    width: 460px;
     display: inline-block;
-    
+    @include media($normal) {
+      width: 100%;
+    }
     .temp{
       font-size: 7em;
       @include roboto-condensed;
@@ -101,11 +102,20 @@ body{
     }
     .label{
       line-height: 1em;
-      margin-bottom: 40px;
+      margin-bottom: 50px;
     }
   }
   #current_outside_temp{
-    margin-right: 1em;
+    margin-right: 30px;
+    @include media($normal) {
+      margin-left: 0;
+      margin-bottom: 20px;
+    }
+  }
+  #current_inside_temp{
+    @include media($normal) {
+      margin-left: 0;
+    }
   }
 }
 
