@@ -1,0 +1,6 @@
+config/credentials.yml
+Gemfile.lock
+.sass-cache
+_site
+_sass
+.sass-cache
