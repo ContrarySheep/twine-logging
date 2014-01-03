@@ -23,7 +23,7 @@ function handleQueryResponse(response) {
   dateFormatter.format(data, 0);
 
 
-  var lastRow = 21; // The last row that represents the most current readings
+  var lastRow = data.getNumberOfRows() - 1; // The last row that represents the most current readings
 
   var outdoorTemp = data.getValue(lastRow,1);
   var indoorTemp = data.getValue(lastRow,2);
