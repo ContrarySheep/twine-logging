@@ -23,7 +23,7 @@ class Reading
     new_row = @ws.num_rows + 1
 
     # Record the current time
-    @ws[new_row,1] = Time.now.getlocal('-05:00').strftime('%d/%m/%Y %l:%M %p')
+    @ws[new_row,1] = Time.now.getlocal('-05:00').strftime('%m/%d/%Y %l:%M %p')
 
     # Record the current outside_temp
     @ws[new_row,2] = outside_temp.current
