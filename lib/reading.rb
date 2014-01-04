@@ -51,7 +51,7 @@ class Reading
   end
 
   def time_rotate
-    first_recorded_time = Time.parse(@ws[2,1])
+    first_recorded_time = parse_google_time(@ws[2,1])
     forty_eight_hours_ago = Time.now - 48 * 60 * 60
     if first_recorded_time <= forty_eight_hours_ago
       for row in @ws.rows
@@ -66,6 +66,16 @@ class Reading
       @ws.save
       @ws.reload
     end
+  end
+
+  def parse_google_time(google_time)
+    time_included = Time.parse(google_time)
+    if time_included.hour > 0 || time_included.min > 0
+      time = Date._strptime(google_time, '%m/%d/%Y %l:%M:%s')
+    else
+      time = Date._strptime(google_time, '%m/%d/%Y')
+    end
+    return Time.local(time[:year], time[:mon], time[:mday], time[:hour], time[:min], time[:sec], time[:sec_fraction], time[:zone])
   end
 
 end
