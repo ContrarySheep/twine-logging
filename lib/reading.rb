@@ -71,7 +71,7 @@ class Reading
   def parse_google_time(google_time)
     time_included = Time.parse(google_time)
     if time_included.hour > 0 || time_included.min > 0
-      time = Date._strptime(google_time, '%m/%d/%Y %l:%M:%s')
+      time = Date._strptime(google_time, '%m/%d/%Y %k:%M:%s')
     else
       time = Date._strptime(google_time, '%m/%d/%Y')
     end
