@@ -33,7 +33,7 @@ Make sure everything is working by performing the current temperature rake task 
 
     rake temperature:current
 
-Add the temperature:record rake task to crontab using the absolute path to the rake command. Below would be the command for every 15 minutes.
+Add the temperature:record rake task to crontab using the absolute path to the rake command. Below would be the command for every 30 minutes.
 
-	*/15 *  * * *   root    cd /var/twine-logging && /usr/local/bin/rake temperature:record
+	*/30 *  * * *   root    cd /var/twine-logging && /usr/local/bin/rake temperature:record
 
